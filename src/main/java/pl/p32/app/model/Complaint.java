@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Complaint {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     private Integer id;
 
     @Column(name = "comments")

@@ -33,4 +33,10 @@ public class Person extends Party {
     public Person() {
 
     }
+
+    public Person(String firstname, String lastname, String phone) {
+        super(phone);
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
 }

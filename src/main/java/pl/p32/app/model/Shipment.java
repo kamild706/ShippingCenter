@@ -2,6 +2,7 @@ package pl.p32.app.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,10 +43,10 @@ public class Shipment {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "shipment_id")
-    private List<ShipmentItem> items;
+    private List<ShipmentItem> items = new ArrayList<>();
 
     @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Complaint> complaints;
+    private List<Complaint> complaints = new ArrayList<>();
 
     public Integer getId() {
         return id;

@@ -1,6 +1,7 @@
 package pl.p32.app.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,18 +15,18 @@ public class Party {
 
     private String phone;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "party_id")
-    private List<Address> addresses;
+    private List<Address> addresses = new ArrayList<>();
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Shipment> sentShipments;
+    private List<Shipment> sentShipments = new ArrayList<>();
 
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Shipment> receivedShipments;
+    private List<Shipment> receivedShipments = new ArrayList<>();
 
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Complaint> filledComplaints;
+    private List<Complaint> filledComplaints = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -97,5 +98,9 @@ public class Party {
 
     public Party() {
 
+    }
+
+    public Party(String phone) {
+        this.phone = phone;
     }
 }

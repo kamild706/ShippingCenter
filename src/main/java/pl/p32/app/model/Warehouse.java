@@ -1,6 +1,7 @@
 package pl.p32.app.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class Warehouse {
     private String name;
 
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
-    private List<Shipment> shipments;
+    private List<Shipment> shipments = new ArrayList<>();
 
     @ManyToMany(cascade = {
             CascadeType.MERGE,
@@ -27,7 +28,7 @@ public class Warehouse {
             joinColumns = @JoinColumn(name = "warehouse_id"),
             inverseJoinColumns = @JoinColumn(name = "courier_id")
     )
-    private List<Courier> couriers;
+    private List<Courier> couriers = new ArrayList<>();
 
     public Integer getId() {
         return id;

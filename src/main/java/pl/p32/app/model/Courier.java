@@ -1,6 +1,7 @@
 package pl.p32.app.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,13 +21,13 @@ public class Courier {
     private String lastname;
 
     @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL)
-    private List<Vehicle> vehicles;
+    private List<Vehicle> vehicles = new ArrayList<>();
 
     @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL)
-    private List<Shipment> deliveredShipments;
+    private List<Shipment> deliveredShipments = new ArrayList<>();
 
     @ManyToMany(mappedBy = "couriers")
-    private List<Warehouse> warehouses;
+    private List<Warehouse> warehouses = new ArrayList<>();
 
     public Integer getId() {
         return id;

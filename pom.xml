@@ -37,6 +37,7 @@
                     <version>1.6.0</version>
                     <configuration>
                         <mainClass>pl.p32.app.App</mainClass>
+                        <cleanupDaemonThreads>false</cleanupDaemonThreads>
                     </configuration>
                 </plugin>
         </plugins>
@@ -68,8 +69,8 @@
         </dependency>
     </dependencies>
 
-    <properties>
+    <!--<properties>
         <exec.mainClass>pl.p32.app.App</exec.mainClass>
-    </properties>
+    </properties>-->
 
 </project>

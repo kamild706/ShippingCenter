@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<?import javafx.scene.control.Button?>
+<BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.131"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.p32.app.view.RootLayoutController">
+
+    <left>
+        <VBox prefHeight="400.0" prefWidth="120.0">
+            <Button mnemonicParsing="false" prefWidth="120" onAction="#showPerson" text="Osoby"/>
+            <Button  mnemonicParsing="false" prefWidth="120" text="Firmy"/>
+            <Button  mnemonicParsing="false" prefWidth="120" text="Reklamacje"/>
+            <Button  mnemonicParsing="false" prefWidth="120" text="Kurierzy"/>
+            <Button  mnemonicParsing="false" prefWidth="120" text="Przesyłki"/>
+            <Button  mnemonicParsing="false" prefWidth="120" text="Pojazdy"/>
+            <Button  mnemonicParsing="false" prefWidth="120" text="Magazyny"/>
+        </VBox>
+    </left>
+</BorderPane>
