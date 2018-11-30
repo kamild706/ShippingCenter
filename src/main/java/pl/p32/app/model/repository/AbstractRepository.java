@@ -10,7 +10,7 @@ import org.hibernate.resource.transaction.spi.TransactionStatus;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-public abstract class AbstractRepository<T, ID> {
+public abstract class AbstractRepository<T, ID> implements RepositoryInterface<T> {
 
     private Class<T> entity;
     private static SessionFactory factory = null;

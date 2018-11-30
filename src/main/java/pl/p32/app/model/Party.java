@@ -103,4 +103,8 @@ public class Party {
     public Party(String phone) {
         this.phone = phone;
     }
+
+    public String getName() {
+        return null;
+    }
 }

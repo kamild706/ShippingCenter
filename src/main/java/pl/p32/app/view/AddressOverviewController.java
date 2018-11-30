@@ -3,22 +3,20 @@ package pl.p32.app.view;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import pl.p32.app.App;
 import pl.p32.app.model.Address;
 import pl.p32.app.model.Enterprise;
 import pl.p32.app.model.Party;
 import pl.p32.app.model.Person;
-import pl.p32.app.model.repository.AbstractRepository;
 import pl.p32.app.model.repository.EnterpriseRepository;
 import pl.p32.app.model.repository.PersonRepository;
+import pl.p32.app.model.repository.RepositoryInterface;
 
 public class AddressOverviewController {
 
     private App app;
-    private AbstractRepository repository;
+    private RepositoryInterface repository;
     private Party party;
 
     @FXML
@@ -72,13 +70,46 @@ public class AddressOverviewController {
         }
     }
 
-    public void newAddress() {
-
+    private void updateList() {
+        addressTable.setItems(FXCollections.observableArrayList(party.getAddresses()));
     }
 
-    public void editAddress() {}
+    public void newAddress() {
+        Address newAddress = new Address();
+        boolean confirmed = app.showAddressEditDialog(newAddress);
+        if (confirmed) {
+            party.addAddress(newAddress);
+            repository.update(party);
+            updateList();
+        }
+    }
 
-    public void deleteAddress() {}
+    public void editAddress() {
+        Address selected = addressTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            boolean confirmed = app.showAddressEditDialog(selected);
+            if (confirmed) {
+                repository.update(party);
+                updateList();
+                showAddressDetails(selected);
+            }
+        }
+    }
+
+    public void deleteAddress() {
+        Address selected = addressTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Czy napewno usunąć?", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+
+            if (alert.getResult() == ButtonType.YES) {
+                showAddressDetails(null);
+                party.removeAddress(selected);
+                repository.update(party);
+                updateList();
+            }
+        }
+    }
 
     @FXML
     public void setApp(App app) {

@@ -2,6 +2,7 @@ package pl.p32.app.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
@@ -18,11 +19,11 @@ public class Complaint {
     @Column(name = "receiving_date")
     private LocalDateTime receivingDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "party_id")
     private Party creator;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shipment_id")
     private Shipment shipment;
 
@@ -70,6 +71,16 @@ public class Complaint {
 
     public Complaint() {
 
+    }
+
+    public String getFormattedDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/M/yyyy");
+        return receivingDate.format(formatter);
+    }
+
+    public String getFormattedDateTime(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/M/yyyy HH:mm");
+        return receivingDate.format(formatter);
     }
 
     @Override

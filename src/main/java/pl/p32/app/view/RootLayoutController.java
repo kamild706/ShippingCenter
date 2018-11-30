@@ -13,4 +13,20 @@ public class RootLayoutController {
     public void showPerson() {
         app.showPersonOverview();
     }
+
+    public void showEnterprise() {
+        app.showEnterpriseOverview();
+    }
+
+    public void showComplaint() {
+        app.showComplaintOverview();
+    }
+
+    public void showShipment() {
+        app.showShipmentOverview();
+    }
+
+    public void showWarehouse() {
+        app.showWarehouseOverview();
+    }
 }

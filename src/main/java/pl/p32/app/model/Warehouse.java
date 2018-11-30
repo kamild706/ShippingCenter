@@ -1,5 +1,8 @@
 package pl.p32.app.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +20,11 @@ public class Warehouse {
     @Column(name = "name")
     private String name;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
     private List<Shipment> shipments = new ArrayList<>();
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = {
             CascadeType.MERGE,
             CascadeType.PERSIST

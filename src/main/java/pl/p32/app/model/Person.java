@@ -30,6 +30,10 @@ public class Person extends Party {
         this.lastname = lastname;
     }
 
+    public String getName() {
+        return firstname + " " + lastname;
+    }
+
     public Person() {
 
     }

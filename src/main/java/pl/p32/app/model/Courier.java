@@ -29,6 +29,14 @@ public class Courier {
     @ManyToMany(mappedBy = "couriers")
     private List<Warehouse> warehouses = new ArrayList<>();
 
+    public List<Warehouse> getWarehouses() {
+        return warehouses;
+    }
+
+    public void setWarehouses(List<Warehouse> warehouses) {
+        this.warehouses = warehouses;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -67,6 +75,10 @@ public class Courier {
 
     public void setDeliveredShipments(List<Shipment> deliveredShipments) {
         this.deliveredShipments = deliveredShipments;
+    }
+
+    public String getName() {
+        return firstname + " " + lastname;
     }
 
     public void addVehicle(Vehicle vehicle) {
