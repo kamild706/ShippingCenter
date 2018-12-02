@@ -40,6 +40,7 @@ public class ShipmentOverviewController {
     @FXML
     private Label warehouseLabel;
 
+
     @FXML
     public void initialize() {
         shipmentColumn.setCellValueFactory(cellData -> new SimpleStringProperty("Przesyłka " + cellData.getValue().getFormattedDateTime()));
@@ -54,6 +55,7 @@ public class ShipmentOverviewController {
     public void showShipmentDetails(Shipment shipment) {
         if (shipment != null) {
             senderLabel.setText(shipment.getSender().getName());
+            receiverLabel.setText(shipment.getReceiver().getName());
             sentAtLabel.setText(shipment.getFormattedDateTime());
             receivedAtLabel.setText(shipment.getDeliveryDate() == null ? "Niedostarczona" : shipment.getDeliveryFormattedDateTime());
             courierLabel.setText(shipment.getCourier() == null ? "-" : shipment.getCourier().getName());
@@ -61,6 +63,7 @@ public class ShipmentOverviewController {
             showShipmentItems(shipment);
         } else {
             senderLabel.setText("");
+            receiverLabel.setText("");
             sentAtLabel.setText("");
             receivedAtLabel.setText("");
             courierLabel.setText("");

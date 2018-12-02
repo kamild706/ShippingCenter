@@ -46,11 +46,11 @@
                 <Label  GridPane.columnIndex="1" fx:id="senderLabel"/>
                 <Label  GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="receiverLabel"/>
                 <Label  GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="sentAtLabel"/>
-                <Label  GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="receivedAtLabel"/>
-                <Label  GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="courierLabel"/>
-                <Label  GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="lettersLabel"/>
-                <Label  GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="parcelsLabel"/>
-                <Label  GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="warehouseLabel"/>
+                <Label  GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="receivedAtLabel"/>
+                <Label  GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="courierLabel"/>
+                <Label  GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="lettersLabel"/>
+                <Label  GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="parcelsLabel"/>
+                <Label  GridPane.columnIndex="1" GridPane.rowIndex="7" fx:id="warehouseLabel"/>
             </GridPane>
             <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
                 <buttons>

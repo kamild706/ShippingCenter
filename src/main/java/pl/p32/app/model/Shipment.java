@@ -1,5 +1,8 @@
 package pl.p32.app.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -42,6 +45,7 @@ public class Shipment {
     @JoinColumn(name = "address_id")
     private Address deliveryAddress;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "shipment_id")
     private List<ShipmentItem> items = new ArrayList<>();
