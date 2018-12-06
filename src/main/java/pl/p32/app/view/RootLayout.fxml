@@ -14,7 +14,7 @@
             <Button  mnemonicParsing="false" prefWidth="120" onAction="#showEnterprise" text="Firmy"/>
             <Button  mnemonicParsing="false" prefWidth="120" onAction="#showComplaint" text="Reklamacje"/>
             <Button  mnemonicParsing="false" prefWidth="120" onAction="#showShipment" text="Przesyłki"/>
-            <Button  mnemonicParsing="false" prefWidth="120" text="Kurierzy"/>
+            <Button  mnemonicParsing="false" prefWidth="120" onAction="#showCourier" text="Kurierzy"/>
             <Button  mnemonicParsing="false" prefWidth="120" text="Pojazdy"/>
             <Button  mnemonicParsing="false" prefWidth="120" onAction="#showWarehouse" text="Magazyny"/>
         </VBox>

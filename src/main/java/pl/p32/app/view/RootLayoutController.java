@@ -29,4 +29,8 @@ public class RootLayoutController {
     public void showWarehouse() {
         app.showWarehouseOverview();
     }
+
+    public void showCourier() {
+        app.showCourierOverview();
+    }
 }

@@ -15,7 +15,7 @@
         <!-- Assume test is the database name -->
 
         <property name="hibernate.connection.url">
-            jdbc:mysql://localhost/test
+            jdbc:mysql://p32.pl:3306/shipping_center
         </property>
 
         <property name="hibernate.connection.username">
@@ -23,7 +23,7 @@
         </property>
 
         <property name="hibernate.connection.password">
-            password
+            rdRX1j9INbBL8ItP
         </property>
 
         <property name="show_sql">

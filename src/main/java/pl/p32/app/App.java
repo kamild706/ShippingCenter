@@ -9,10 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pl.p32.app.model.*;
-import pl.p32.app.model.repository.AbstractRepository;
-import pl.p32.app.model.repository.ParcelRepository;
-import pl.p32.app.model.repository.PartyRepository;
-import pl.p32.app.model.repository.PersonRepository;
+import pl.p32.app.model.repository.*;
 import pl.p32.app.view.*;
 
 import java.io.IOException;
@@ -291,24 +288,55 @@ public class App extends Application {
         }
     }
 
+    public void showCourierOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("view/CourierOverview.fxml"));
+            AnchorPane bankOverview = loader.load();
+            rootLayout.setCenter(bankOverview);
+
+            CourierOverviewController controller = loader.getController();
+            controller.setApp(this);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean showCourierEditDialog(Courier courier) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("view/CourierEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edytuj kuriera");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            CourierEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setCourier(courier);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isConfirmed();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         launch(args);
-        /*PartyRepository repository = PartyRepository.getInstance();
-        List<Party> parties = repository.findAll();
-        for (Party party : parties) {
-            System.out.println(party.getName());
-        }*/
-        /*PersonRepository repository = PersonRepository.getInstance();
-        List<Person> people = repository.findAll();
-        Person person = people.get(0);
-
-        Address address = new Address();
-        address.setBuildingNumber("21/3");
-        address.setCity("Białystok");
-        address.setCountry("Polska");
-        address.setStreet("Wiejska");
-        address.setZipcode("15-102");
-        person.addAddress(address);
-        repository.update(person);*/
+        /*ShipmentRepository repository = ShipmentRepository.getInstance();
+        List<Shipment> shipments = repository.findAll();
+        repository.remove(shipments.get(0));*/
     }
 }

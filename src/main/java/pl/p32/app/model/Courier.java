@@ -1,5 +1,8 @@
 package pl.p32.app.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,7 @@ public class Courier {
     @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL)
     private List<Shipment> deliveredShipments = new ArrayList<>();
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(mappedBy = "couriers")
     private List<Warehouse> warehouses = new ArrayList<>();
 
@@ -100,6 +104,14 @@ public class Courier {
 
     public Courier() {
 
+    }
+
+    public String getWarehousesNames() {
+        StringBuilder sb = new StringBuilder();
+        for (Warehouse warehouse : warehouses) {
+            sb.append(warehouse.getName()).append(", ");
+        }
+        return sb.toString();
     }
 
     @Override
