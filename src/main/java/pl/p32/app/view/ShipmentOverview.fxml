@@ -55,9 +55,8 @@
             <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
                 <buttons>
                     <Button mnemonicParsing="false" prefWidth="150" onAction="#newShipment" text="Nowa przesyłka" />
-                    <!--<Button mnemonicParsing="false" prefWidth="150" onAction="#newPerson" text="Dodaj nowy" />
-                    <Button mnemonicParsing="false" prefWidth="150" onAction="#editPerson" text="Edytuj" />
-                    <Button mnemonicParsing="false" prefWidth="150" onAction="#deletePerson" text="Usuń" />-->
+                    <Button mnemonicParsing="false" prefWidth="150" onAction="#deliverShipment" text="Oznacz jako dostarczoną" />
+                    <Button mnemonicParsing="false" prefWidth="150" onAction="#createComplaint" text="Stwórz reklamację" />
                 </buttons>
             </ButtonBar>
         </AnchorPane>

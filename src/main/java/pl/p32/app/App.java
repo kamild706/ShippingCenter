@@ -335,8 +335,47 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch(args);
+//        WarehouseRepository repo = WarehouseRepository.getInstance();
+//        Warehouse warehouse = repo.findAll().get(0);
+//        CourierRepository repo1 = CourierRepository.getInstance();
+//        Courier courier = repo1.findAll().get(0);
+        /*courier.addWarehouse(warehouse);
+        repo1.update(courier);*/
+//        warehouse.addCourier(courier);
+//        repo1.update(courier);
+//        repo.update(warehouse);
         /*ShipmentRepository repository = ShipmentRepository.getInstance();
         List<Shipment> shipments = repository.findAll();
         repository.remove(shipments.get(0));*/
+    }
+
+    public boolean showShipmentDeliveryDialog(Shipment shipment) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("view/ShipmentDeliveryDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Zapisz dostawę");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            ShipmentDeliveryDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setShipment(shipment);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isConfirmed();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

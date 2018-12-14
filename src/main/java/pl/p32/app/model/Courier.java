@@ -26,11 +26,19 @@ public class Courier {
     @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL)
     private List<Vehicle> vehicles = new ArrayList<>();
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL)
     private List<Shipment> deliveredShipments = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(mappedBy = "couriers")
+    @ManyToMany(cascade = {
+            CascadeType.MERGE,
+            CascadeType.PERSIST
+    })
+    @JoinTable(name = "courier_warehouse",
+            joinColumns = @JoinColumn(name = "courier_id"),
+            inverseJoinColumns = @JoinColumn(name = "warehouse_id")
+    )
     private List<Warehouse> warehouses = new ArrayList<>();
 
     public List<Warehouse> getWarehouses() {
@@ -96,10 +104,12 @@ public class Courier {
 
     public void addWarehouse(Warehouse warehouse) {
         warehouses.add(warehouse);
+        warehouse.addCourier(this);
     }
 
     public void removeWarehouse(Warehouse warehouse) {
         warehouses.remove(warehouse);
+        warehouse.removeCourier(this);
     }
 
     public Courier() {

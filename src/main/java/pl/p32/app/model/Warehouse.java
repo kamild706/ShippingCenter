@@ -25,14 +25,7 @@ public class Warehouse {
     private List<Shipment> shipments = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = {
-            CascadeType.MERGE,
-            CascadeType.PERSIST
-    })
-    @JoinTable(name = "courier_warehouse",
-            joinColumns = @JoinColumn(name = "warehouse_id"),
-            inverseJoinColumns = @JoinColumn(name = "courier_id")
-    )
+    @ManyToMany(mappedBy = "warehouses")
     private List<Courier> couriers = new ArrayList<>();
 
     public Integer getId() {
@@ -69,12 +62,10 @@ public class Warehouse {
 
     public void addCourier(Courier courier) {
         couriers.add(courier);
-        courier.addWarehouse(this);
     }
 
     public void removeCourier(Courier courier) {
         couriers.remove(courier);
-        courier.removeWarehouse(this);
     }
 
     public Warehouse() {
