@@ -50,6 +50,7 @@ public class Shipment {
     @JoinColumn(name = "shipment_id")
     private List<ShipmentItem> items = new ArrayList<>();
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Complaint> complaints = new ArrayList<>();
 
@@ -143,7 +144,7 @@ public class Shipment {
 
     public void addComplaint(Complaint complaint) {
         complaints.add(complaint);
-        complaint.setShipment(this);
+//        complaint.setShipment(this);
     }
 
     @Override
@@ -172,5 +173,9 @@ public class Shipment {
 
     public Shipment() {
 
+    }
+
+    public String getName() {
+        return "Przesyłka " + getFormattedDateTime();
     }
 }

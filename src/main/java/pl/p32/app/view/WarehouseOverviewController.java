@@ -5,8 +5,13 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.p32.app.App;
+import pl.p32.app.model.Courier;
+import pl.p32.app.model.Shipment;
 import pl.p32.app.model.Warehouse;
 import pl.p32.app.model.repository.WarehouseRepository;
+
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class WarehouseOverviewController {
 
@@ -26,6 +31,15 @@ public class WarehouseOverviewController {
     private Label shipmentsLabel;
 
     @FXML
+    private TableView<Courier> couriersTableView;
+    @FXML
+    private TableColumn<Courier, String> courierNameColumn;
+    @FXML
+    private TableView<Shipment> shipmentsTableView;
+    @FXML
+    private TableColumn<Shipment, String> shipmentNameColumn;
+
+    @FXML
     public void initialize() {
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
 
@@ -34,17 +48,23 @@ public class WarehouseOverviewController {
 
         repository = WarehouseRepository.getInstance();
         warehouseTable.setItems(FXCollections.observableArrayList(repository.findAll()));
+        shipmentNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        courierNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
     }
 
     public void showWarehouseDetails(Warehouse warehouse) {
         if (warehouse != null) {
             nameLabel.setText(warehouse.getName());
             couriersLabel.setText(String.valueOf(warehouse.getCouriers().size()));
-            shipmentsLabel.setText(String.valueOf(warehouse.getShipments().size()));
+            shipmentsLabel.setText(String.valueOf(warehouse.getNotDeliveredShipments().size()));
+            couriersTableView.setItems(FXCollections.observableArrayList(warehouse.getCouriers()));
+            shipmentsTableView.setItems(FXCollections.observableArrayList(warehouse.getNotDeliveredShipments()));
         } else {
             nameLabel.setText("");
             couriersLabel.setText("");
             shipmentsLabel.setText("");
+            couriersTableView.setItems(FXCollections.observableArrayList(Collections.emptyList()));
+            shipmentsTableView.setItems(FXCollections.observableArrayList(Collections.emptyList()));
         }
     }
 

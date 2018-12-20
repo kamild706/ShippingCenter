@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import pl.p32.app.App;
 import pl.p32.app.model.Enterprise;
 import pl.p32.app.model.Person;
+import pl.p32.app.model.Shipment;
 import pl.p32.app.model.repository.EnterpriseRepository;
 
 public class EnterpriseOverviewController {
@@ -31,6 +32,15 @@ public class EnterpriseOverviewController {
     private Label phoneLabel;
 
     @FXML
+    private TableView<Shipment> sentShipmentsTableView;
+    @FXML
+    private TableView<Shipment> receivedShipmentsTableView;
+    @FXML
+    private TableColumn<Shipment, String> sentShipmentColumnName;
+    @FXML
+    private TableColumn<Shipment, String> receivedShipmentColumnName;
+
+    @FXML
     public void initialize() {
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         nipColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNIP()));
@@ -41,6 +51,9 @@ public class EnterpriseOverviewController {
 
         repository = EnterpriseRepository.getInstance();
         enterpriseTable.setItems(FXCollections.observableArrayList(repository.findAll()));
+
+        sentShipmentColumnName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        receivedShipmentColumnName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
     }
 
     private void showEnterpriseDetails(Enterprise enterprise) {
@@ -48,10 +61,16 @@ public class EnterpriseOverviewController {
             nameLabel.setText(enterprise.getName());
             nipLabel.setText(enterprise.getNIP());
             phoneLabel.setText(enterprise.getPhone());
+
+            sentShipmentsTableView.setItems(FXCollections.observableArrayList(enterprise.getSentShipments()));
+            receivedShipmentsTableView.setItems(FXCollections.observableArrayList(enterprise.getReceivedShipments()));
         } else {
             nameLabel.setText("");
             nipLabel.setText("");
             phoneLabel.setText("");
+
+            sentShipmentsTableView.getItems().clear();
+            receivedShipmentsTableView.getItems().clear();
         }
     }
 

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.p32.app.App;
 import pl.p32.app.model.Person;
+import pl.p32.app.model.Shipment;
 import pl.p32.app.model.repository.PersonRepository;
 
 public class PersonOverviewController {
@@ -30,6 +31,15 @@ public class PersonOverviewController {
     private Label phoneLabel;
 
     @FXML
+    private TableView<Shipment> sentShipmentsTableView;
+    @FXML
+    private TableView<Shipment> receivedShipmentsTableView;
+    @FXML
+    private TableColumn<Shipment, String> sentShipmentColumnName;
+    @FXML
+    private TableColumn<Shipment, String> receivedShipmentColumnName;
+
+    @FXML
     public void initialize() {
         firstnameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstname()));
         lastnameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastname()));
@@ -40,6 +50,9 @@ public class PersonOverviewController {
 
         repository = PersonRepository.getInstance();
         personTable.setItems(FXCollections.observableArrayList(repository.findAll()));
+
+        sentShipmentColumnName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        receivedShipmentColumnName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
     }
 
     private void showPersonDetails(Person person) {
@@ -47,10 +60,16 @@ public class PersonOverviewController {
             firstnameLabel.setText(person.getFirstname());
             lastnameLabel.setText(person.getLastname());
             phoneLabel.setText(person.getPhone());
+
+            sentShipmentsTableView.setItems(FXCollections.observableArrayList(person.getSentShipments()));
+            receivedShipmentsTableView.setItems(FXCollections.observableArrayList(person.getReceivedShipments()));
         } else {
             firstnameLabel.setText("");
             lastnameLabel.setText("");
             phoneLabel.setText("");
+
+            sentShipmentsTableView.getItems().clear();
+            receivedShipmentsTableView.getItems().clear();
         }
     }
 

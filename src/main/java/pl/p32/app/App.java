@@ -335,18 +335,15 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch(args);
-//        WarehouseRepository repo = WarehouseRepository.getInstance();
-//        Warehouse warehouse = repo.findAll().get(0);
-//        CourierRepository repo1 = CourierRepository.getInstance();
-//        Courier courier = repo1.findAll().get(0);
-        /*courier.addWarehouse(warehouse);
-        repo1.update(courier);*/
-//        warehouse.addCourier(courier);
-//        repo1.update(courier);
-//        repo.update(warehouse);
-        /*ShipmentRepository repository = ShipmentRepository.getInstance();
-        List<Shipment> shipments = repository.findAll();
-        repository.remove(shipments.get(0));*/
+        /*ShipmentRepository repo = ShipmentRepository.getInstance();
+        List<Shipment> shipments = repo.findAll();
+        Shipment ship = shipments.get(shipments.size() - 1);
+        System.out.println(ship.getComplaints().size());
+        Complaint comp = ship.getComplaints().get(0);
+        System.out.println(comp.getShipment());*/
+        /*ComplaintRepository repo = ComplaintRepository.getInstance();
+        Complaint complaint = repo.findAll().get(0);
+        System.out.println(complaint.getShipment());*/
     }
 
     public boolean showShipmentDeliveryDialog(Shipment shipment) {
@@ -374,6 +371,34 @@ public class App extends Application {
             return controller.isConfirmed();
         }
         catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showNewComplaintDialog(Shipment shipment) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("view/ComplaintNewDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Zapisz reklamacje");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            ComplaintNewDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setShipment(shipment);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isConfirmed();
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }

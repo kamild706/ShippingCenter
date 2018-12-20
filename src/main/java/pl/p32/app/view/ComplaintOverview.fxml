@@ -43,6 +43,7 @@
                 <Label  GridPane.columnIndex="1" fx:id="nameLabel"/>
                 <Label  GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="dateLabel"/>
                 <Label  GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="commentsLabel"/>
+                <Label  GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="shipmentLabel"/>
             </GridPane>
             <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
                 <buttons>

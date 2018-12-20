@@ -15,7 +15,6 @@ public class ComplaintOverviewController {
 
     private App app;
     private ComplaintRepository repository;
-    private Complaint complaint;
 
     @FXML
     private TableView<Complaint> complaintTable;
@@ -46,14 +45,17 @@ public class ComplaintOverviewController {
 
         repository = ComplaintRepository.getInstance();
         complaintTable.setItems(FXCollections.observableArrayList(repository.findAll()));
+
+        complaintTable.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> showComplaintDetails(newValue)));
     }
 
-    private void showComplaintDetails(Complaint person) {
-        if (person != null) {
+    private void showComplaintDetails(Complaint complaint) {
+        if (complaint != null) {
             nameLabel.setText(complaint.getCreator().getName());
             dateLabel.setText(complaint.getFormattedDateTime());
             commentsLabel.setText(complaint.getComments());
-
+            shipmentLabel.setText(complaint.getShipment().getName());
         } else {
             nameLabel.setText("");
             dateLabel.setText("");

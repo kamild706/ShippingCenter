@@ -1,5 +1,6 @@
 package pl.p32.app.view;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -11,6 +12,10 @@ import pl.p32.app.App;
 import pl.p32.app.model.*;
 import pl.p32.app.model.repository.ComplaintRepository;
 import pl.p32.app.model.repository.ShipmentRepository;
+
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class ShipmentOverviewController {
 
@@ -38,7 +43,16 @@ public class ShipmentOverviewController {
     private Label parcelsLabel;
     @FXML
     private Label warehouseLabel;
-
+    @FXML
+    private TableView<Parcel> parcelsTableView;
+    @FXML
+    private TableColumn<Parcel, Integer> weightColumnName;
+    @FXML
+    private TableColumn<Parcel, Integer> lengthColumnName;
+    @FXML
+    private TableColumn<Parcel, Integer> heightColumnName;
+    @FXML
+    private TableColumn<Parcel, Integer> widthColumnName;
 
     @FXML
     public void initialize() {
@@ -49,6 +63,11 @@ public class ShipmentOverviewController {
 
         repository = ShipmentRepository.getInstance();
         shipmentTable.setItems(FXCollections.observableArrayList(repository.findAll()));
+
+        widthColumnName.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getWidth()).asObject());
+        heightColumnName.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getHeight()).asObject());
+        weightColumnName.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getWeight()).asObject());
+        lengthColumnName.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getLength()).asObject());
     }
 
     public void showShipmentDetails(Shipment shipment) {
@@ -60,6 +79,8 @@ public class ShipmentOverviewController {
             courierLabel.setText(shipment.getCourier() == null ? "-" : shipment.getCourier().getName());
             warehouseLabel.setText(shipment.getWarehouse().getName());
             showShipmentItems(shipment);
+            List<Parcel> list = shipment.getItems().stream().filter(p -> p instanceof Parcel).map(p -> (Parcel) p).collect(Collectors.toList());
+            parcelsTableView.setItems(FXCollections.observableArrayList(list));
         } else {
             senderLabel.setText("");
             receiverLabel.setText("");
@@ -69,6 +90,7 @@ public class ShipmentOverviewController {
             lettersLabel.setText("");
             parcelsLabel.setText("");
             warehouseLabel.setText("");
+            parcelsTableView.getItems().clear();
         }
     }
 
@@ -113,12 +135,12 @@ public class ShipmentOverviewController {
     }
 
     public void createComplaint() {
-        /*Shipment shipment = shipmentTable.getSelectionModel().getSelectedItem();
+        Shipment shipment = shipmentTable.getSelectionModel().getSelectedItem();
         boolean confirmed = app.showNewComplaintDialog(shipment);
         if (confirmed) {
             Complaint complaint = shipment.getComplaints().get(shipment.getComplaints().size() -1);
             ComplaintRepository.getInstance().save(complaint);
-        }*/
+        }
         //TODO
     }
 }

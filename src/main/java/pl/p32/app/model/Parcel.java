@@ -10,16 +10,12 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "parcel_id")
 public class Parcel extends ShipmentItem {
 
-    @Column(name = "weight")
     private Integer weight;
 
-    @Column(name = "height")
     private Integer height;
 
-    @Column(name = "width")
     private Integer width;
 
-    @Column(name = "length")
     private Integer length;
 
     public Integer getWeight() {

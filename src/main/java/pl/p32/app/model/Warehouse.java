@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "warehouse")
@@ -70,6 +71,10 @@ public class Warehouse {
 
     public Warehouse() {
 
+    }
+
+    public List<Shipment> getNotDeliveredShipments() {
+        return getShipments().stream().filter(p -> p.getCourier() == null).collect(Collectors.toList());
     }
 
     public void addShipment(Shipment shipment) {
