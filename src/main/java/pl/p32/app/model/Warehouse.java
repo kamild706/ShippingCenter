@@ -4,9 +4,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -15,10 +13,8 @@ public class Warehouse {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
     private String name;
 
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -27,7 +23,8 @@ public class Warehouse {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(mappedBy = "warehouses")
-    private List<Courier> couriers = new ArrayList<>();
+    private Set<Courier> couriers = new HashSet<>();
+
 
     public Integer getId() {
         return id;
@@ -53,24 +50,12 @@ public class Warehouse {
         this.shipments = shipments;
     }
 
-    public List<Courier> getCouriers() {
+    public Set<Courier> getCouriers() {
         return couriers;
     }
 
-    public void setCouriers(List<Courier> couriers) {
+    public void setCouriers(Set<Courier> couriers) {
         this.couriers = couriers;
-    }
-
-    public void addCourier(Courier courier) {
-        couriers.add(courier);
-    }
-
-    public void removeCourier(Courier courier) {
-        couriers.remove(courier);
-    }
-
-    public Warehouse() {
-
     }
 
     public List<Shipment> getNotDeliveredShipments() {

@@ -16,7 +16,6 @@ public class Shipment {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
     private Integer id;
 
     @Column(name = "send_at")

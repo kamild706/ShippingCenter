@@ -4,9 +4,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "courier")
@@ -17,11 +15,20 @@ public class Courier {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "firstname")
     private String firstname;
 
-    @Column(name = "lastname")
     private String lastname;
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = {
+//            CascadeType.MERGE,
+            CascadeType.PERSIST
+    })
+    @JoinTable(name = "courier_warehouse",
+            joinColumns = @JoinColumn(name = "courier_id"),
+            inverseJoinColumns = @JoinColumn(name = "warehouse_id")
+    )
+    private Set<Warehouse> warehouses = new HashSet<>();
 
     @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL)
     private List<Vehicle> vehicles = new ArrayList<>();
@@ -30,24 +37,6 @@ public class Courier {
     @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL)
     private List<Shipment> deliveredShipments = new ArrayList<>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = {
-            CascadeType.MERGE,
-            CascadeType.PERSIST
-    })
-    @JoinTable(name = "courier_warehouse",
-            joinColumns = @JoinColumn(name = "courier_id"),
-            inverseJoinColumns = @JoinColumn(name = "warehouse_id")
-    )
-    private List<Warehouse> warehouses = new ArrayList<>();
-
-    public List<Warehouse> getWarehouses() {
-        return warehouses;
-    }
-
-    public void setWarehouses(List<Warehouse> warehouses) {
-        this.warehouses = warehouses;
-    }
 
     public Integer getId() {
         return id;
@@ -55,6 +44,14 @@ public class Courier {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Set<Warehouse> getWarehouses() {
+        return warehouses;
+    }
+
+    public void setWarehouses(Set<Warehouse> warehouses) {
+        this.warehouses = warehouses;
     }
 
     public String getFirstname() {
@@ -104,24 +101,12 @@ public class Courier {
 
     public void addWarehouse(Warehouse warehouse) {
         warehouses.add(warehouse);
-        warehouse.addCourier(this);
+        warehouse.getCouriers().add(this);
     }
 
     public void removeWarehouse(Warehouse warehouse) {
         warehouses.remove(warehouse);
-        warehouse.removeCourier(this);
-    }
-
-    public Courier() {
-
-    }
-
-    public String getWarehousesNames() {
-        StringBuilder sb = new StringBuilder();
-        for (Warehouse warehouse : warehouses) {
-            sb.append(warehouse.getName()).append(", ");
-        }
-        return sb.toString();
+        warehouse.getCouriers().remove(this);
     }
 
     @Override
@@ -134,7 +119,6 @@ public class Courier {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id);
     }
 }
