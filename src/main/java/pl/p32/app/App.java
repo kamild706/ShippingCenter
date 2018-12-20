@@ -33,7 +33,7 @@ public class App extends Application {
     public void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/RootLayout.fxml"));
+            loader.setLocation(getClass().getResource("view/RootLayout.fxml"));
             rootLayout = loader.load();
 
             RootLayoutController controller = loader.getController();
@@ -66,7 +66,7 @@ public class App extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/PersonEditDialog.fxml"));
+            loader.setLocation(getClass().getResource("view/PersonEditDialog.fxml"));
             AnchorPane page = loader.load();
 
             // Create the dialog Stage.
@@ -95,7 +95,7 @@ public class App extends Application {
     public void showAddressOverview(Party party) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/AddressOverview.fxml"));
+            loader.setLocation(getClass().getResource("view/AddressOverview.fxml"));
             AnchorPane customerOverview = loader.load();
             rootLayout.setCenter(customerOverview);
 
@@ -112,7 +112,7 @@ public class App extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/AddressEditDialog.fxml"));
+            loader.setLocation(getClass().getResource("view/AddressEditDialog.fxml"));
             AnchorPane page = loader.load();
 
             // Create the dialog Stage.
@@ -141,7 +141,7 @@ public class App extends Application {
     public void showEnterpriseOverview() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/EnterpriseOverview.fxml"));
+            loader.setLocation(getClass().getResource("view/EnterpriseOverview.fxml"));
             AnchorPane bankOverview = loader.load();
             rootLayout.setCenter(bankOverview);
 
@@ -157,7 +157,7 @@ public class App extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/EnterpriseEditDialog.fxml"));
+            loader.setLocation(getClass().getResource("view/EnterpriseEditDialog.fxml"));
             AnchorPane page = loader.load();
 
             // Create the dialog Stage.
@@ -186,7 +186,7 @@ public class App extends Application {
     public void showComplaintOverview() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/ComplaintOverview.fxml"));
+            loader.setLocation(getClass().getResource("view/ComplaintOverview.fxml"));
             AnchorPane bankOverview = loader.load();
             rootLayout.setCenter(bankOverview);
 
@@ -201,7 +201,7 @@ public class App extends Application {
     public void showShipmentOverview() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/ShipmentOverview.fxml"));
+            loader.setLocation(getClass().getResource("view/ShipmentOverview.fxml"));
             AnchorPane bankOverview = loader.load();
             rootLayout.setCenter(bankOverview);
 
@@ -217,7 +217,7 @@ public class App extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/ShipmentNewDialog.fxml"));
+            loader.setLocation(getClass().getResource("view/ShipmentNewDialog.fxml"));
             AnchorPane page = loader.load();
 
             // Create the dialog Stage.
@@ -246,7 +246,7 @@ public class App extends Application {
     public void showWarehouseOverview() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/WarehouseOverview.fxml"));
+            loader.setLocation(getClass().getResource("view/WarehouseOverview.fxml"));
             AnchorPane bankOverview = loader.load();
             rootLayout.setCenter(bankOverview);
 
@@ -262,7 +262,7 @@ public class App extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/WarehouseEditDialog.fxml"));
+            loader.setLocation(getClass().getResource("view/WarehouseEditDialog.fxml"));
             AnchorPane page = loader.load();
 
             // Create the dialog Stage.
@@ -291,7 +291,7 @@ public class App extends Application {
     public void showCourierOverview() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/CourierOverview.fxml"));
+            loader.setLocation(getClass().getResource("view/CourierOverview.fxml"));
             AnchorPane bankOverview = loader.load();
             rootLayout.setCenter(bankOverview);
 
@@ -307,7 +307,7 @@ public class App extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/CourierEditDialog.fxml"));
+            loader.setLocation(getClass().getResource("view/CourierEditDialog.fxml"));
             AnchorPane page = loader.load();
 
             // Create the dialog Stage.
@@ -350,7 +350,7 @@ public class App extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/ShipmentDeliveryDialog.fxml"));
+            loader.setLocation(getClass().getResource("view/ShipmentDeliveryDialog.fxml"));
             AnchorPane page = loader.load();
 
             // Create the dialog Stage.
@@ -379,7 +379,7 @@ public class App extends Application {
     public boolean showNewComplaintDialog(Shipment shipment) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/ComplaintNewDialog.fxml"));
+            loader.setLocation(getClass().getResource("view/ComplaintNewDialog.fxml"));
             AnchorPane page = loader.load();
 
             // Create the dialog Stage.
