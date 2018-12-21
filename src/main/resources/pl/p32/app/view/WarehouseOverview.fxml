@@ -62,9 +62,9 @@
             </TableView>
             <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
                 <buttons>
-                    <Button mnemonicParsing="false" prefWidth="150" onAction="#newWarehouse" text="Nowa przesyłka" />
-                    <Button mnemonicParsing="false" prefWidth="150" onAction="#editWarehouse" text="Edytuj" />
-                    <Button mnemonicParsing="false" prefWidth="150" onAction="#deleteWarehouse" text="Usuń" />
+                    <Button mnemonicParsing="false" prefWidth="150" onAction="#newWarehouse" text="Nowy magazyn" />
+                    <Button mnemonicParsing="false" prefWidth="150" onAction="#editWarehouse" text="Edytuj magazyn" />
+                    <Button mnemonicParsing="false" prefWidth="150" onAction="#deleteWarehouse" text="Usuń magazyn" />
                 </buttons>
             </ButtonBar>
         </AnchorPane>

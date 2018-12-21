@@ -65,9 +65,9 @@
             <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
                 <buttons>
                     <Button mnemonicParsing="false" prefWidth="150" onAction="#showAddresses" text="Pokaż adresy" />
-                    <Button mnemonicParsing="false" prefWidth="150" onAction="#newPerson" text="Dodaj nowy" />
-                    <Button mnemonicParsing="false" prefWidth="150" onAction="#editPerson" text="Edytuj" />
-                    <Button mnemonicParsing="false" prefWidth="150" onAction="#deletePerson" text="Usuń" />
+                    <Button mnemonicParsing="false" prefWidth="150" onAction="#newPerson" text="Dodaj klienta" />
+                    <Button mnemonicParsing="false" prefWidth="150" onAction="#editPerson" text="Edytuj klienta" />
+                    <Button mnemonicParsing="false" prefWidth="150" onAction="#deletePerson" text="Usuń klienta" />
                 </buttons>
             </ButtonBar>
         </AnchorPane>

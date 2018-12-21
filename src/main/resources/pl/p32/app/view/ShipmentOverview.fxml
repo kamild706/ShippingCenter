@@ -53,7 +53,7 @@
                 <Label  GridPane.columnIndex="1" GridPane.rowIndex="7" fx:id="parcelsLabel"/>
             </GridPane>
             <TableView fx:id="parcelsTableView" layoutX="32.0" layoutY="46.0" prefHeight="150.0" prefWidth="201.0"
-                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="220.0">
+                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0">
                 <columns>
                     <TableColumn fx:id="heightColumnName" prefWidth="301.0" text="Wysokość (cm)"/>
                     <TableColumn fx:id="widthColumnName" prefWidth="301.0" text="Szerokość (cm)"/>

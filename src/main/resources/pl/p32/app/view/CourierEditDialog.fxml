@@ -51,7 +51,7 @@
             <RowConstraints/>
         </rowConstraints>
 
-        <Button mnemonicParsing="false" onAction="#deleteWarehouse" prefWidth="100" text="Usuń zaznaczony"/>
+        <Button mnemonicParsing="false" onAction="#deleteWarehouse" prefWidth="300" text="Usuń zaznaczony"/>
         <ComboBox fx:id="warehouseCombo" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <Button mnemonicParsing="false" onAction="#addWarehouse" prefWidth="100" text="Dodaj" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
