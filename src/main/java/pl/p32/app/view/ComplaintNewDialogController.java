@@ -2,12 +2,14 @@ package pl.p32.app.view;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import pl.p32.app.model.Complaint;
 import pl.p32.app.model.Party;
-import pl.p32.app.model.Person;
 import pl.p32.app.model.Shipment;
 
 import java.time.LocalDateTime;
@@ -41,10 +43,10 @@ public class ComplaintNewDialogController {
 
     public void handleOk() {
         Complaint complaint = new Complaint();
-        complaint.setShipment(shipment);
         complaint.setComments(commentsField.getText());
         complaint.setCreator(creator.getValue());
         complaint.setReceivingDate(LocalDateTime.now());
+        shipment.addComplaint(complaint);
 
         confirmed = true;
         dialogStage.close();

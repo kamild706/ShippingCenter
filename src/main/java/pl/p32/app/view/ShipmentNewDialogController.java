@@ -58,7 +58,6 @@ public class ShipmentNewDialogController implements Initializable {
 
     public void setShipment(Shipment shipment) {
         this.shipment = shipment;
-
     }
 
     public boolean isConfirmed() {
@@ -71,6 +70,9 @@ public class ShipmentNewDialogController implements Initializable {
         shipment.setSendDate(LocalDateTime.now());
         shipment.setDeliveryAddress(addressCombo.getValue());
         shipment.setWarehouse(warehouseCombo.getValue());
+        shipment.getWarehouse().getShipments().add(shipment);
+        shipment.getSender().getSentShipments().add(shipment);
+        shipment.getReceiver().getReceivedShipments().add(shipment);
 
         confirmed = true;
         dialogStage.close();

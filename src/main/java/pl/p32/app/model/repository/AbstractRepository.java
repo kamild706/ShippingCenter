@@ -1,31 +1,29 @@
 package pl.p32.app.model.repository;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-public abstract class AbstractRepository<T, ID> implements RepositoryInterface<T> {
+public abstract class AbstractRepository<T> implements RepositoryInterface<T> {
 
     private Class<T> entity;
     private static SessionFactory factory = null;
-    private Session session;
+    private Session session = null;
 
-    public Session openSession() {
-        session = factory.openSession();
+    private Session openSession() {
+        if (session == null)
+            session = factory.openSession();
         return session;
     }
 
-    public void closeSession() {
-        session.close();
+    private void closeSession() {
+//        session.close();
     }
 
-    public AbstractRepository(Class<T> entityClass) {
+    AbstractRepository(Class<T> entityClass) {
         if (factory == null)
             factory = new Configuration().configure().buildSessionFactory();
         entity = entityClass;
@@ -39,6 +37,7 @@ public abstract class AbstractRepository<T, ID> implements RepositoryInterface<T
         openSession();
         session.beginTransaction();
         session.persist(t);
+        session.flush();
         session.getTransaction().commit();
         closeSession();
     }
@@ -47,6 +46,7 @@ public abstract class AbstractRepository<T, ID> implements RepositoryInterface<T
         openSession();
         session.beginTransaction();
         T tmp = (T) session.merge(t);
+        session.flush();
         session.getTransaction().commit();
         closeSession();
         return tmp;

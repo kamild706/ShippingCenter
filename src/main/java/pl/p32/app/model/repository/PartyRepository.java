@@ -2,7 +2,7 @@ package pl.p32.app.model.repository;
 
 import pl.p32.app.model.Party;
 
-public class PartyRepository extends AbstractRepository<Party, Integer> {
+public class PartyRepository extends AbstractRepository<Party> {
 
     private static PartyRepository instance = new PartyRepository();
 

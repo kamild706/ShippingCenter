@@ -1,7 +1,7 @@
 package pl.p32.app.model;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,20 +18,17 @@ public class Party {
 
     private String phone;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "party_id")
     private List<Address> addresses = new ArrayList<>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "sender")
     private List<Shipment> sentShipments = new ArrayList<>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "receiver")
     private List<Shipment> receivedShipments = new ArrayList<>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "creator")
     private List<Complaint> filledComplaints = new ArrayList<>();
 
     public Integer getId() {
@@ -88,18 +85,6 @@ public class Party {
 
     public void removeAddress(Address address) {
         addresses.remove(address);
-    }
-
-    public void addSentShipment(Shipment shipment) {
-        sentShipments.add(shipment);
-    }
-
-    public void addReceivedShipment(Shipment shipment) {
-        receivedShipments.add(shipment);
-    }
-
-    public void addComplaint(Complaint complaint) {
-        filledComplaints.add(complaint);
     }
 
     public Party() {

@@ -3,18 +3,18 @@ package pl.p32.app.view;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import pl.p32.app.App;
-import pl.p32.app.model.*;
-import pl.p32.app.model.repository.ComplaintRepository;
+import pl.p32.app.model.Letter;
+import pl.p32.app.model.Parcel;
+import pl.p32.app.model.Shipment;
+import pl.p32.app.model.ShipmentItem;
 import pl.p32.app.model.repository.ShipmentRepository;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class ShipmentOverviewController {
@@ -70,7 +70,7 @@ public class ShipmentOverviewController {
         lengthColumnName.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getLength()).asObject());
     }
 
-    public void showShipmentDetails(Shipment shipment) {
+    private void showShipmentDetails(Shipment shipment) {
         if (shipment != null) {
             senderLabel.setText(shipment.getSender().getName());
             receiverLabel.setText(shipment.getReceiver().getName());
@@ -107,7 +107,7 @@ public class ShipmentOverviewController {
         parcelsLabel.setText(String.valueOf(parcels));
     }
 
-    public void updateList() {
+    private void updateList() {
         shipmentTable.setItems(FXCollections.observableArrayList(repository.findAll()));
     }
 
@@ -138,9 +138,7 @@ public class ShipmentOverviewController {
         Shipment shipment = shipmentTable.getSelectionModel().getSelectedItem();
         boolean confirmed = app.showNewComplaintDialog(shipment);
         if (confirmed) {
-            Complaint complaint = shipment.getComplaints().get(shipment.getComplaints().size() -1);
-            ComplaintRepository.getInstance().save(complaint);
+            repository.update(shipment);
         }
-        //TODO
     }
 }

@@ -49,8 +49,4 @@ public class Parcel extends ShipmentItem {
     public void setLength(Integer length) {
         this.length = length;
     }
-
-    public Parcel() {
-
-    }
 }

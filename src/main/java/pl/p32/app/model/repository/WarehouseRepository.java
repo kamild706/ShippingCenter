@@ -2,7 +2,7 @@ package pl.p32.app.model.repository;
 
 import pl.p32.app.model.Warehouse;
 
-public class WarehouseRepository extends AbstractRepository<Warehouse, Integer> {
+public class WarehouseRepository extends AbstractRepository<Warehouse> {
 
     private static WarehouseRepository instance = new WarehouseRepository();
 

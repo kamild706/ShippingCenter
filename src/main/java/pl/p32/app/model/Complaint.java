@@ -13,17 +13,16 @@ public class Complaint {
     @GeneratedValue
     private Integer id;
 
-    @Column(name = "comments")
     private String comments;
 
     @Column(name = "receiving_date")
     private LocalDateTime receivingDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "party_id")
     private Party creator;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "shipment_id")
     private Shipment shipment;
 
@@ -57,7 +56,6 @@ public class Complaint {
 
     public void setCreator(Party creator) {
         this.creator = creator;
-        creator.addComplaint(this);
     }
 
     public Shipment getShipment() {
@@ -66,11 +64,6 @@ public class Complaint {
 
     public void setShipment(Shipment shipment) {
         this.shipment = shipment;
-        shipment.addComplaint(this);
-    }
-
-    public Complaint() {
-
     }
 
     public String getFormattedDate() {

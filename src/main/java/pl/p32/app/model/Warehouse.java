@@ -1,8 +1,5 @@
 package pl.p32.app.model;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,11 +14,9 @@ public class Warehouse {
 
     private String name;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "warehouse")
     private List<Shipment> shipments = new ArrayList<>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(mappedBy = "warehouses")
     private Set<Courier> couriers = new HashSet<>();
 
@@ -60,10 +55,6 @@ public class Warehouse {
 
     public List<Shipment> getNotDeliveredShipments() {
         return getShipments().stream().filter(p -> p.getCourier() == null).collect(Collectors.toList());
-    }
-
-    public void addShipment(Shipment shipment) {
-        shipments.add(shipment);
     }
 
     @Override

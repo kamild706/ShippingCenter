@@ -1,8 +1,5 @@
 package pl.p32.app.model;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,32 +21,30 @@ public class Shipment {
     @Column(name = "delivered_at")
     private LocalDateTime deliveryDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")
     private Party sender;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receiver_id")
     private Party receiver;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "courier_id")
     private Courier courier;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address deliveryAddress;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "shipment_id")
     private List<ShipmentItem> items = new ArrayList<>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Complaint> complaints = new ArrayList<>();
 
@@ -83,7 +78,6 @@ public class Shipment {
 
     public void setSender(Party sender) {
         this.sender = sender;
-        sender.addSentShipment(this);
     }
 
     public Party getReceiver() {
@@ -92,7 +86,6 @@ public class Shipment {
 
     public void setReceiver(Party receiver) {
         this.receiver = receiver;
-        receiver.addReceivedShipment(this);
     }
 
     public Warehouse getWarehouse() {
@@ -101,7 +94,6 @@ public class Shipment {
 
     public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
-        warehouse.addShipment(this);
     }
 
     public Courier getCourier() {
@@ -110,7 +102,6 @@ public class Shipment {
 
     public void setCourier(Courier courier) {
         this.courier = courier;
-        courier.addDeliveredShipment(this);
     }
 
     public Address getDeliveryAddress() {
@@ -143,21 +134,7 @@ public class Shipment {
 
     public void addComplaint(Complaint complaint) {
         complaints.add(complaint);
-//        complaint.setShipment(this);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Shipment shipment = (Shipment) o;
-        return Objects.equals(id, shipment.id);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id);
+        complaint.setShipment(this);
     }
 
     public String getFormattedDateTime(){
@@ -170,11 +147,20 @@ public class Shipment {
         return deliveryDate.format(formatter);
     }
 
-    public Shipment() {
-
-    }
-
     public String getName() {
         return "Przesyłka " + getFormattedDateTime();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Shipment shipment = (Shipment) o;
+        return Objects.equals(id, shipment.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

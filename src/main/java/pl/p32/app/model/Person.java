@@ -1,6 +1,5 @@
 package pl.p32.app.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -30,17 +29,8 @@ public class Person extends Party {
         this.lastname = lastname;
     }
 
+    @Override
     public String getName() {
         return firstname + " " + lastname;
-    }
-
-    public Person() {
-
-    }
-
-    public Person(String firstname, String lastname, String phone) {
-        super(phone);
-        this.firstname = firstname;
-        this.lastname = lastname;
     }
 }

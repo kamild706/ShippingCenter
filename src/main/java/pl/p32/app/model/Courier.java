@@ -1,8 +1,5 @@
 package pl.p32.app.model;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.util.*;
 
@@ -12,17 +9,16 @@ public class Courier {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
     private Integer id;
 
     private String firstname;
 
     private String lastname;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = {
 //            CascadeType.MERGE,
-            CascadeType.PERSIST
+            CascadeType.PERSIST,
+            CascadeType.DETACH
     })
     @JoinTable(name = "courier_warehouse",
             joinColumns = @JoinColumn(name = "courier_id"),
@@ -30,11 +26,10 @@ public class Courier {
     )
     private Set<Warehouse> warehouses = new HashSet<>();
 
-    @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "courier")
     private List<Vehicle> vehicles = new ArrayList<>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "courier")
     private List<Shipment> deliveredShipments = new ArrayList<>();
 
 
@@ -90,15 +85,6 @@ public class Courier {
         return firstname + " " + lastname;
     }
 
-    public void addVehicle(Vehicle vehicle) {
-        vehicles.add(vehicle);
-        vehicle.setCourier(this);
-    }
-
-    public void addDeliveredShipment(Shipment shipment) {
-        deliveredShipments.add(shipment);
-    }
-
     public void addWarehouse(Warehouse warehouse) {
         warehouses.add(warehouse);
         warehouse.getCouriers().add(this);
@@ -107,6 +93,13 @@ public class Courier {
     public void removeWarehouse(Warehouse warehouse) {
         warehouses.remove(warehouse);
         warehouse.getCouriers().remove(this);
+    }
+
+    public void replaceWarehouses(Set<Warehouse> warehouses) {
+        for (Warehouse warehouse : this.warehouses)
+            removeWarehouse(warehouse);
+        for (Warehouse warehouse: warehouses)
+            addWarehouse(warehouse);
     }
 
     @Override

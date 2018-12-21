@@ -37,6 +37,12 @@ public class CourierOverviewController {
     private TableView<Warehouse> warehousesTableView;
     @FXML
     private TableColumn<Warehouse, String> warehouseNameColumn;
+    @FXML
+    private TableView<Vehicle> vehicleTableView;
+    @FXML
+    private TableColumn<Vehicle, String> vehicleBrandTableColumn;
+    @FXML
+    private TableColumn<Vehicle, String> vehicleModelTableColumn;
 
     public void setApp(App app) {
         this.app = app;
@@ -54,6 +60,8 @@ public class CourierOverviewController {
         courierTableView.setItems(FXCollections.observableArrayList(repository.findAll()));
         shipmentNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         warehouseNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        vehicleBrandTableColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBrand()));
+        vehicleModelTableColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModel()));
     }
 
     private void showCourierDetails(Courier courier) {
@@ -62,12 +70,13 @@ public class CourierOverviewController {
             lastnameLabel.setText(courier.getLastname());
             warehousesTableView.setItems(FXCollections.observableArrayList(courier.getWarehouses()));
             shipmentsTableView.setItems(FXCollections.observableArrayList(courier.getDeliveredShipments()));
-
+            vehicleTableView.setItems(FXCollections.observableArrayList(courier.getVehicles()));
         } else {
             firstnameLabel.setText("");
             lastnameLabel.setText("");
-            warehousesTableView.setItems(FXCollections.observableArrayList(Collections.emptyList()));
-            shipmentsTableView.setItems(FXCollections.observableArrayList(Collections.emptyList()));
+            warehousesTableView.getItems().clear();
+            shipmentsTableView.getItems().clear();
+            vehicleTableView.getItems().clear();
         }
     }
 

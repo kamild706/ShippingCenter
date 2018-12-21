@@ -11,7 +11,6 @@ import pl.p32.app.model.Warehouse;
 import pl.p32.app.model.repository.WarehouseRepository;
 
 import java.util.Collections;
-import java.util.stream.Collectors;
 
 public class WarehouseOverviewController {
 

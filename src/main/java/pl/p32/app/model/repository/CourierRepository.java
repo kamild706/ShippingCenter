@@ -2,7 +2,7 @@ package pl.p32.app.model.repository;
 
 import pl.p32.app.model.Courier;
 
-public class CourierRepository extends AbstractRepository<Courier, Integer> {
+public class CourierRepository extends AbstractRepository<Courier> {
     private static CourierRepository instance = new CourierRepository();
 
     public static CourierRepository getInstance() {

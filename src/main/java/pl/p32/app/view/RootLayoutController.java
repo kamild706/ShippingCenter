@@ -33,4 +33,8 @@ public class RootLayoutController {
     public void showCourier() {
         app.showCourierOverview();
     }
+
+    public void showVehicle() {
+        app.showVehicleOverview();
+    }
 }

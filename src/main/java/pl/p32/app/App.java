@@ -25,12 +25,11 @@ public class App extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Centrum przesyłkowe");
 
-//        PersonRepository.getInstance();
         initRootLayout();
         showPersonOverview();
     }
 
-    public void initRootLayout() {
+    private void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("view/RootLayout.fxml"));
@@ -335,15 +334,6 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        /*ShipmentRepository repo = ShipmentRepository.getInstance();
-        List<Shipment> shipments = repo.findAll();
-        Shipment ship = shipments.get(shipments.size() - 1);
-        System.out.println(ship.getComplaints().size());
-        Complaint comp = ship.getComplaints().get(0);
-        System.out.println(comp.getShipment());*/
-        /*ComplaintRepository repo = ComplaintRepository.getInstance();
-        Complaint complaint = repo.findAll().get(0);
-        System.out.println(complaint.getShipment());*/
     }
 
     public boolean showShipmentDeliveryDialog(Shipment shipment) {
@@ -393,6 +383,49 @@ public class App extends Application {
             ComplaintNewDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setShipment(shipment);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isConfirmed();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void showVehicleOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("view/VehicleOverview.fxml"));
+            AnchorPane bankOverview = loader.load();
+            rootLayout.setCenter(bankOverview);
+
+            VehicleOverviewController controller = loader.getController();
+            controller.setApp(this);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean showVehicleEditDialog(Vehicle vehicle) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("view/VehicleEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edytuj pojazd");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            VehicleEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setVehicle(vehicle);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

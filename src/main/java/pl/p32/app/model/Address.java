@@ -64,9 +64,6 @@ public class Address {
         this.zipcode = zipcode;
     }
 
-    public Address() {
-    }
-
     @Override
     public String toString() {
         return String.format("%s, %s, %s, %s, %s", country, zipcode, city, street, buildingNumber);

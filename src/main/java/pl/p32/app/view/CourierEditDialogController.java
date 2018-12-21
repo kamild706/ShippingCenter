@@ -13,7 +13,9 @@ import pl.p32.app.model.Warehouse;
 import pl.p32.app.model.repository.WarehouseRepository;
 
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class CourierEditDialogController {
 
@@ -33,6 +35,7 @@ public class CourierEditDialogController {
     private Stage dialogStage;
     private Courier object;
     private boolean confirmed = false;
+    private Set<Warehouse> warehouseSet;
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -43,9 +46,10 @@ public class CourierEditDialogController {
 
         firstnameField.setText(object.getFirstname());
         lastnameField.setText(object.getLastname());
+        warehouseSet = new HashSet<>(object.getWarehouses());
 
         initialize();
-        warehousesTableView.setItems(FXCollections.observableArrayList(object.getWarehouses()));
+        warehousesTableView.setItems(FXCollections.observableArrayList(warehouseSet));
     }
 
     public boolean isConfirmed() {
@@ -55,6 +59,7 @@ public class CourierEditDialogController {
     public void handleOk() {
         object.setFirstname(firstnameField.getText());
         object.setLastname(lastnameField.getText());
+        object.replaceWarehouses(warehouseSet);
 
         confirmed = true;
         dialogStage.close();
@@ -62,13 +67,13 @@ public class CourierEditDialogController {
 
     public void deleteWarehouse() {
         Warehouse warehouse = warehousesTableView.getSelectionModel().getSelectedItem();
-        object.removeWarehouse(warehouse);
-        warehousesTableView.setItems(FXCollections.observableArrayList(object.getWarehouses()));
+        warehouseSet.remove(warehouse);
+        warehousesTableView.setItems(FXCollections.observableArrayList(warehouseSet));
     }
 
     public void addWarehouse() {
-        object.addWarehouse(warehouseCombo.getValue());
-        warehousesTableView.setItems(FXCollections.observableArrayList(object.getWarehouses()));
+        warehouseSet.add(warehouseCombo.getValue());
+        warehousesTableView.setItems(FXCollections.observableArrayList(warehouseSet));
     }
 
     public void handleCancel() {
