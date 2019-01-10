@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.p32.app.App;
 import pl.p32.app.model.*;
+import pl.p32.app.model.repository.AbstractRepository;
 import pl.p32.app.model.repository.ComplaintRepository;
 import pl.p32.app.model.repository.CourierRepository;
 
@@ -65,6 +66,7 @@ public class CourierOverviewController {
     }
 
     private void showCourierDetails(Courier courier) {
+        repository.getSession().refresh(courier);
         if (courier != null) {
             firstnameLabel.setText(courier.getFirstname());
             lastnameLabel.setText(courier.getLastname());

@@ -47,10 +47,12 @@ public class VehicleEditDialogController {
     public void handleOk() {
         vehicle.setBrand(brandTextField.getText());
         vehicle.setModel(modelTextField.getText());
-        vehicle.getCourier().getVehicles().remove(vehicle);
+        Courier courier = vehicle.getCourier();
+        if (courier != null) {
+            vehicle.getCourier().getVehicles().remove(vehicle);
+        }
         vehicle.setCourier(courierComboBox.getValue());
         vehicle.getCourier().getVehicles().add(vehicle);
-
 
         confirmed = true;
         dialogStage.close();

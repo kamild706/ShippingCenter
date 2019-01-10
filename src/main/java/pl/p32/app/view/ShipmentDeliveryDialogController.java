@@ -39,8 +39,10 @@ public class ShipmentDeliveryDialogController {
     }
 
     public void handleOk() {
+        Courier courier = courierComboBox.getValue();
 
-        shipment.setCourier(courierComboBox.getValue());
+        shipment.setCourier(courier);
+        courier.getDeliveredShipments().add(shipment);
         shipment.setDeliveryDate(LocalDateTime.now());
 
         confirmed = true;
@@ -62,6 +64,7 @@ public class ShipmentDeliveryDialogController {
                         if (item == null || empty) {
                             setText("");
                         } else {
+                            System.out.println(item.getName());
                             setText(item.getName());
                         }
                     }
@@ -71,6 +74,7 @@ public class ShipmentDeliveryDialogController {
 
         courierComboBox.setButtonCell(courierFactory.call(null));
         courierComboBox.setCellFactory(courierFactory);
+        System.out.println("ROZMAIR KURIER: " + shipment.getWarehouse().getCouriers().size());
         courierComboBox.setItems(FXCollections.observableArrayList(shipment.getWarehouse().getCouriers()));
     }
 }

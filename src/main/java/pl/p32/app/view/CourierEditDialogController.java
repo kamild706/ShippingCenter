@@ -35,6 +35,7 @@ public class CourierEditDialogController {
     private Stage dialogStage;
     private Courier object;
     private boolean confirmed = false;
+    private boolean warehousesChanged = false;
     private Set<Warehouse> warehouseSet;
 
     public void setDialogStage(Stage dialogStage) {
@@ -59,19 +60,23 @@ public class CourierEditDialogController {
     public void handleOk() {
         object.setFirstname(firstnameField.getText());
         object.setLastname(lastnameField.getText());
-        object.replaceWarehouses(warehouseSet);
+
+        if (warehousesChanged)
+            object.replaceWarehouses(warehouseSet);
 
         confirmed = true;
         dialogStage.close();
     }
 
     public void deleteWarehouse() {
+        warehousesChanged = true;
         Warehouse warehouse = warehousesTableView.getSelectionModel().getSelectedItem();
         warehouseSet.remove(warehouse);
         warehousesTableView.setItems(FXCollections.observableArrayList(warehouseSet));
     }
 
     public void addWarehouse() {
+        warehousesChanged = true;
         warehouseSet.add(warehouseCombo.getValue());
         warehousesTableView.setItems(FXCollections.observableArrayList(warehouseSet));
     }

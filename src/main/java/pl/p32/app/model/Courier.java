@@ -16,8 +16,8 @@ public class Courier {
     private String lastname;
 
     @ManyToMany(cascade = {
-//            CascadeType.MERGE,
-            CascadeType.PERSIST,
+            CascadeType.MERGE,
+//            CascadeType.PERSIST,
             CascadeType.DETACH
     })
     @JoinTable(name = "courier_warehouse",
@@ -96,8 +96,12 @@ public class Courier {
     }
 
     public void replaceWarehouses(Set<Warehouse> warehouses) {
-        for (Warehouse warehouse : this.warehouses)
-            removeWarehouse(warehouse);
+        for (Warehouse warehouse : this.warehouses) {
+//            removeWarehouse(warehouse);
+            warehouse.getCouriers().remove(this);
+        }
+        this.warehouses.clear();
+
         for (Warehouse warehouse: warehouses)
             addWarehouse(warehouse);
     }
@@ -113,5 +117,10 @@ public class Courier {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

@@ -71,6 +71,7 @@ public class ShipmentOverviewController {
     }
 
     private void showShipmentDetails(Shipment shipment) {
+//        repository.getSession().refresh(shipment);
         if (shipment != null) {
             senderLabel.setText(shipment.getSender().getName());
             receiverLabel.setText(shipment.getReceiver().getName());
@@ -127,6 +128,7 @@ public class ShipmentOverviewController {
         boolean confirmed = app.showShipmentDeliveryDialog(shipment);
         if (confirmed) {
             repository.update(shipment);
+            showShipmentDetails(shipment);
         }
     }
 

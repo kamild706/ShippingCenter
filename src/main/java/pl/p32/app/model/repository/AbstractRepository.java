@@ -19,6 +19,10 @@ public abstract class AbstractRepository<T> implements RepositoryInterface<T> {
         return session;
     }
 
+    public Session getSession() {
+        return session;
+    }
+
     private void closeSession() {
 //        session.close();
     }
